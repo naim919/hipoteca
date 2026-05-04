@@ -464,6 +464,66 @@
     pointer-events: none;
   }
 
+  /* Euribor grid */
+  .euribor-section {
+    display: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    animation: fadeIn 0.3s ease;
+  }
+  .euribor-section.visible { display: block; }
+  .euribor-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .euribor-header label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .euribor-formula {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .euribor-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .euribor-plus { color: var(--text-muted); font-size: 16px; }
+  .euribor-spread-wrap { position: relative; width: 90px; }
+  .euribor-spread-wrap input { padding-right: 28px; }
+  .euribor-year-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+  }
+  .euribor-year-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .euribor-year-item label {
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  .euribor-year-item input {
+    padding: 7px 28px 7px 10px;
+    font-size: 13px;
+  }
+
+  /* Scrollbar */
   /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -530,27 +590,42 @@
       </div>
 
       <!-- Mixta -->
-      <div id="seccion-mixta" class="mixed-section form-grid-2">
-        <div class="field">
-          <label>Interés Fijo Inicial</label>
-          <div class="input-wrap">
-            <input type="number" id="interes-mixto-fijo" value="2.8" min="0" max="20" step="0.01">
-            <span class="input-suffix">%</span>
+      <div id="seccion-mixta" class="mixed-section">
+        <div class="form-grid-2">
+          <div class="field">
+            <label>Interés Fijo Inicial</label>
+            <div class="input-wrap">
+              <input type="number" id="interes-mixto-fijo" value="2.8" min="0" max="20" step="0.01">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Años a Tipo Fijo</label>
+            <div class="input-wrap">
+              <input type="number" id="anos-fijo" value="10" min="1" max="39" step="1">
+              <span class="input-suffix">años</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Diferencial sobre Euríbor</label>
+            <div class="euribor-formula" style="margin-top:2px;">
+              <span class="euribor-label">Euríbor</span>
+              <span class="euribor-plus">+</span>
+              <div class="euribor-spread-wrap input-wrap">
+                <input type="number" id="euribor-spread" value="1.0" min="0" max="5" step="0.01">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="field">
-          <label>Años a Tipo Fijo</label>
-          <div class="input-wrap">
-            <input type="number" id="anos-fijo" value="10" min="1" max="39" step="1">
-            <span class="input-suffix">años</span>
+
+        <!-- Euribor por año variable -->
+        <div class="euribor-section" id="euribor-section">
+          <div class="euribor-header">
+            <label>Euríbor estimado por año</label>
+            <span style="font-size:11px; color:var(--text-dim);">(predefinido 2,30% — edita los que quieras)</span>
           </div>
-        </div>
-        <div class="field">
-          <label>Interés Variable (resto)</label>
-          <div class="input-wrap">
-            <input type="number" id="interes-mixto-var" value="1.5" min="0" max="20" step="0.01">
-            <span class="input-suffix">%</span>
-          </div>
+          <div class="euribor-year-grid" id="euribor-year-grid"></div>
         </div>
       </div>
 
@@ -731,15 +806,22 @@ document.querySelectorAll('input[name="tipo"]').forEach(r => {
     const mixto = r.value === 'mixto';
     document.getElementById('seccion-mixta').classList.toggle('visible', mixto);
     document.getElementById('seccion-fijo').style.display = mixto ? 'none' : 'grid';
+    if (mixto) rebuildEuriborGrid();
     calcular();
   });
 });
 
 // ─── AUTO CALC ───────────────────────────────────────────────────
-['precio','pct-financiar','anos','interes-fijo','interes-mixto-fijo','anos-fijo','interes-mixto-var','itp-pct','inmo-pct'].forEach(id => {
+['precio','pct-financiar','anos','interes-fijo','interes-mixto-fijo','itp-pct','inmo-pct'].forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', calcular);
 });
+// anos and anos-fijo also rebuild the euribor grid
+['anos','anos-fijo'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => { rebuildEuriborGrid(); calcular(); });
+});
+document.getElementById('euribor-spread').addEventListener('input', calcular);
 document.getElementById('notaria-importe').addEventListener('change', calcular);
   document.getElementById('itp-pct').addEventListener('change', calcular);
 document.getElementById('inmo-pct').addEventListener('change', calcular);
@@ -753,40 +835,56 @@ function cuotaMensual(capital, tasaAnual, meses) {
 
 // ─── BUILD SCHEDULE ──────────────────────────────────────────────
 function buildSchedule(capital, params) {
-  // params: { tipo, interesFijo, interesMixtoFijo, anosFixo, interesMixtoVar, mesesTotal }
+  // params: { tipo, interesFijo, interesMixtoFijo, anosFixo,
+  //           euriborSpread, euriborAnual (array), mesesTotal }
   const rows = [];
   let saldo = capital;
   const mesesTotal = params.mesesTotal;
   const esFixo = params.tipo === 'fijo';
   const mesesFixo = esFixo ? mesesTotal : params.anosFixo * 12;
-
-  // We rebuild if amortizations exist
   const amorts = params.amorts || {};
+
+  // Compute effective rate for a given month index (0-based)
+  function tasaParaMes(i) {
+    if (esFixo) return params.interesFijo;
+    if (i < mesesFixo) return params.interesMixtoFijo;
+    // Variable: use per-year euribor + spread
+    const anoVar = Math.floor((i - mesesFixo) / 12); // 0-based variable year
+    const euribor = (params.euriborAnual && params.euriborAnual[anoVar] != null)
+      ? params.euriborAnual[anoVar]
+      : 2.3;
+    return euribor + params.euriborSpread;
+  }
 
   let cuotaActual = esFixo
     ? cuotaMensual(saldo, params.interesFijo, mesesTotal)
     : cuotaMensual(saldo, params.interesMixtoFijo, mesesTotal);
 
-  let mesActual = 0;
-
   for (let i = 0; i < mesesTotal; i++) {
     if (saldo <= 0.01) break;
-    mesActual = i;
 
-    // Switch to variable rate if mixed
-    if (!esFixo && i === mesesFixo) {
+    const tasaActual = tasaParaMes(i);
+    const isMixedBoundary = !esFixo && i === mesesFixo;
+
+    // On switch to variable, recalculate cuota with new rate
+    if (isMixedBoundary) {
       const mesesRestantes = mesesTotal - i;
-      cuotaActual = cuotaMensual(saldo, params.interesMixtoVar, mesesRestantes);
+      cuotaActual = cuotaMensual(saldo, tasaActual, mesesRestantes);
     }
 
-    const tasaActual = esFixo
-      ? params.interesFijo
-      : (i < mesesFixo ? params.interesMixtoFijo : params.interesMixtoVar);
+    // Annual rate change within variable period (start of each new variable year)
+    if (!esFixo && i > mesesFixo && (i - mesesFixo) % 12 === 0) {
+      const mesesRestantes = mesesTotal - i;
+      cuotaActual = cuotaMensual(saldo, tasaActual, mesesRestantes);
+    }
 
     const r = tasaActual / 100 / 12;
     const interes = saldo * r;
     const amortizacion = cuotaActual - interes;
     const nuevoSaldo = Math.max(0, saldo - amortizacion);
+
+    const anoVar = (!esFixo && i >= mesesFixo)
+      ? Math.floor((i - mesesFixo) / 12) : null;
 
     rows.push({
       mes: i + 1,
@@ -795,34 +893,59 @@ function buildSchedule(capital, params) {
       capital: amortizacion,
       intereses: interes,
       amort: amorts[i + 1] || 0,
-      mixedBoundary: !esFixo && i === mesesFixo,
-      yearBoundary: i > 0 && i % 12 === 0,
+      mixedBoundary: isMixedBoundary,
+      yearBoundary: i > 0 && i % 12 === 0 && !isMixedBoundary,
       tasaActual,
+      anoVar,
     });
 
     saldo = nuevoSaldo;
 
-    // Apply amortization parcial after this month
+    // Apply amortizacion parcial after this month
     if (amorts[i + 1]) {
-      const amortAmount = amorts[i + 1];
-      saldo = Math.max(0, saldo - amortAmount);
+      saldo = Math.max(0, saldo - amorts[i + 1]);
       rows[rows.length - 1].pendiente = saldo;
-
-      // Recalculate depending on mode
       const modo = params.amortModo?.[i + 1] || 'cuota';
       const mesesRestantes = mesesTotal - (i + 1);
       if (modo === 'cuota' && mesesRestantes > 0) {
-        // Recalculate cuota, keep plazo
-        cuotaActual = cuotaMensual(saldo, tasaActual, mesesRestantes);
-        // Update the displayed cuota for this row to show old cuota
-      } else if (modo === 'plazo') {
-        // Cuota stays, plazo shrinks (handled by loop ending when saldo <= 0)
-        // cuotaActual stays the same
+        cuotaActual = cuotaMensual(saldo, tasaParaMes(i + 1), mesesRestantes);
       }
     }
   }
 
   return rows;
+}
+
+// ─── EURIBOR GRID BUILDER ────────────────────────────────────────
+function rebuildEuriborGrid() {
+  const anos = parseInt(document.getElementById('anos').value) || 30;
+  const anosFixo = parseInt(document.getElementById('anos-fijo').value) || 10;
+  const anosVar = Math.max(0, anos - anosFixo);
+  const section = document.getElementById('euribor-section');
+  const grid = document.getElementById('euribor-year-grid');
+
+  if (anosVar <= 0) { section.classList.remove('visible'); return; }
+  section.classList.add('visible');
+
+  // Preserve existing values
+  const existing = [];
+  grid.querySelectorAll('.euribor-year-inp').forEach(inp => existing.push(inp.value));
+
+  grid.innerHTML = '';
+  for (let y = 0; y < anosVar; y++) {
+    const anoReal = anosFixo + y + 1;
+    const val = existing[y] !== undefined ? existing[y] : '2.30';
+    const item = document.createElement('div');
+    item.className = 'euribor-year-item';
+    item.innerHTML = `
+      <label>Euríbor año ${anoReal}</label>
+      <div class="input-wrap">
+        <input type="number" class="euribor-year-inp" value="${val}" min="0" max="15" step="0.01">
+        <span class="input-suffix">%</span>
+      </div>`;
+    item.querySelector('input').addEventListener('input', calcular);
+    grid.appendChild(item);
+  }
 }
 
 // ─── MAIN CALC ───────────────────────────────────────────────────
@@ -834,7 +957,13 @@ function calcular() {
   const interesFijo = parseFloat(document.getElementById('interes-fijo').value) || 0;
   const interesMixtoFijo = parseFloat(document.getElementById('interes-mixto-fijo').value) || 0;
   const anosFixo = parseFloat(document.getElementById('anos-fijo').value) || 10;
-  const interesMixtoVar = parseFloat(document.getElementById('interes-mixto-var').value) || 0;
+  const euriborSpread = parseFloat(document.getElementById('euribor-spread')?.value) || 1.0;
+
+  // Collect per-year euribor values
+  const euriborAnual = [];
+  document.querySelectorAll('.euribor-year-inp').forEach(inp => {
+    euriborAnual.push(parseFloat(inp.value) || 2.3);
+  });
 
   const capital = precio * (pctFin / 100);
   const entrada = precio - capital;
@@ -842,7 +971,9 @@ function calcular() {
 
   // Build schedule
   const params = {
-    tipo, interesFijo, interesMixtoFijo, anosFixo, interesMixtoVar, mesesTotal,
+    tipo, interesFijo, interesMixtoFijo, anosFixo,
+    euriborSpread, euriborAnual,
+    mesesTotal,
     amorts: amortizations,
     amortModo: window.amortModos || {},
   };
@@ -988,6 +1119,7 @@ document.getElementById('modal').addEventListener('click', function(e) {
 
 // ─── INIT ────────────────────────────────────────────────────────
 window.amortModos = {};
+rebuildEuriborGrid();
 calcular();
 </script>
 </body>
