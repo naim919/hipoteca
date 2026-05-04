@@ -308,6 +308,7 @@
     border-bottom: 1px solid rgba(42,42,56,0.5);
   }
   td:first-child { text-align: center; color: var(--text-muted); font-size: 12px; }
+  .cell-acum { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
   td.capital { color: var(--green); }
   td.intereses { color: var(--red); }
   td.pendiente { color: var(--blue); }
@@ -1099,7 +1100,13 @@ function renderTable() {
   const tbody = document.getElementById('tbody');
   tbody.innerHTML = '';
 
+  let acumCapital = 0;
+  let acumIntereses = 0;
+
   schedule.forEach((row, i) => {
+    acumCapital += row.capital;
+    acumIntereses += row.intereses;
+
     const tr = document.createElement('tr');
     if (row.mixedBoundary) tr.classList.add('mixed-change');
     else if (row.yearBoundary) tr.classList.add('year-boundary');
@@ -1136,8 +1143,14 @@ function renderTable() {
       <td>${mesLabel}</td>
       <td>${fmtSm(row.cuota)} €</td>
       <td class="pendiente">${fmtSm(row.pendiente)} €</td>
-      <td class="capital">${fmtSm(row.capital)} €</td>
-      <td class="intereses">${fmtSm(row.intereses)} €</td>
+      <td class="capital">
+        ${fmtSm(row.capital)} €
+        <div class="cell-acum">(${fmtSm(acumCapital)} €)</div>
+      </td>
+      <td class="intereses">
+        ${fmtSm(row.intereses)} €
+        <div class="cell-acum">(${fmtSm(acumIntereses)} €)</div>
+      </td>
       <td class="amort-cell">${amortCell}</td>
     `;
     tbody.appendChild(tr);
