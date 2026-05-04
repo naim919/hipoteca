@@ -464,6 +464,64 @@
     pointer-events: none;
   }
 
+  /* Section divider label */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 14px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Dinero a aportar block */
+  .aporte-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 4px;
+  }
+  .aporte-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .aporte-main .label { font-size: 12px; color: var(--text-muted); }
+  .aporte-main .value { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); }
+  .aporte-sub {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-dim);
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    margin-top: 2px;
+  }
+  .aporte-sub span { color: var(--text-muted); }
+
+  /* Meses alquiler highlight */
+  .meses-block {
+    background: rgba(200,169,110,0.07);
+    border: 1px solid var(--accent2);
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 4px;
+  }
+  .meses-block .mb-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .meses-block .mb-value { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--accent); line-height: 1; }
+  .meses-block .mb-sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
   /* Euribor grid */
   .euribor-section {
     display: none;
@@ -583,7 +641,7 @@
         <div class="field">
           <label>Tipo de Interés Fijo</label>
           <div class="input-wrap">
-            <input type="number" id="interes-fijo" value="3.5" min="0" max="20" step="0.01">
+            <input type="number" id="interes-fijo" value="2.2" min="0" max="20" step="0.01">
             <span class="input-suffix">%</span>
           </div>
         </div>
@@ -681,13 +739,25 @@
   <!-- GASTOS DE INICIO -->
   <div style="position:relative;">
     <div class="card gastos-card">
-      <div class="card-title">Gastos de Inicio</div>
+      <div class="card-title">Desembolso Inicial</div>
 
-      <div class="gasto-row">
-        <span class="gasto-label">Entrada (% no financiado)</span>
-        <span class="gasto-value" id="g-entrada">—</span>
+      <!-- DINERO A APORTAR -->
+      <div class="section-label">Dinero a aportar</div>
+      <div class="aporte-block">
+        <div class="aporte-main">
+          <span class="label">Total a aportar</span>
+          <span class="value" id="g-aporte-total">—</span>
+        </div>
+        <div class="aporte-sub">
+          <span>Entrada: <span id="g-entrada">—</span></span>
+          <span>Gastos: <span id="g-gastos-total">—</span></span>
+        </div>
       </div>
-      <div class="gasto-row" style="padding-top:14px;">
+
+      <!-- GASTOS (sin entrada) -->
+      <div class="section-label">Gastos</div>
+
+      <div class="gasto-row" style="padding-top:4px;">
         <div class="field" style="width:100%">
           <label>Notaría, Registro y Tasación</label>
           <select id="notaria-importe">
@@ -706,7 +776,7 @@
         <span class="gasto-value" id="g-notaria">—</span>
       </div>
 
-      <div class="gasto-row" style="padding-top:14px;">
+      <div class="gasto-row" style="padding-top:10px;">
         <div class="field" style="width:100%">
           <label>ITP (% del valor total)</label>
           <select id="itp-pct">
@@ -723,7 +793,7 @@
         <span class="gasto-value" id="g-itp">—</span>
       </div>
 
-      <div class="gasto-row" style="padding-top:14px;">
+      <div class="gasto-row" style="padding-top:10px;">
         <div class="field" style="width:100%">
           <label>Honorarios Inmobiliaria (+ 21% IVA)</label>
           <select id="inmo-pct">
@@ -740,18 +810,22 @@
         <span class="gasto-value" id="g-inmo">—</span>
       </div>
 
-      <div class="gasto-total">
+      <div class="gasto-total" style="margin-top:12px;">
         <div>
-          <div class="label">Total Gastos Inicio</div>
-          <div style="font-size:11px; color:var(--text-dim); margin-top:2px;">Entrada + todos los gastos</div>
+          <div class="label">Total Gastos</div>
+          <div style="font-size:11px; color:var(--text-dim); margin-top:2px;">Sin incluir la entrada</div>
         </div>
         <div class="value" id="g-total">—</div>
       </div>
 
-      <div style="margin-top:14px; background:var(--surface2); border-radius:8px; padding:12px; border:1px solid var(--border);">
-        <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">Desglose</div>
-        <div id="g-desglose" style="font-size:12px; color:var(--text-muted); line-height:1.9;"></div>
+      <!-- BREAK-EVEN ALQUILER -->
+      <div class="section-label">Rentabilidad vs alquiler</div>
+      <div class="meses-block">
+        <div class="mb-label">Meses de cuota hipotecaria para amortizar los gastos</div>
+        <div class="mb-value" id="g-meses">—</div>
+        <div class="mb-sub" id="g-meses-sub">gastos ÷ cuota mensual</div>
       </div>
+
     </div>
   </div>
 
@@ -994,21 +1068,28 @@ function calcular() {
   const notaria = parseFloat(document.getElementById('notaria-importe').value) || 2500;
   const itp = precio * itpPct;
   const inmo = precio * inmoPct * 1.21;
-  const totalGastos = entrada + notaria + itp + inmo;
+
+  // Gastos puros (sin entrada)
+  const soloGastos = notaria + itp + (inmoPct > 0 ? inmo : 0);
+  // Total a aportar = entrada + gastos
+  const totalAportar = entrada + soloGastos;
 
   document.getElementById('g-entrada').textContent = fmt(entrada);
+  document.getElementById('g-gastos-total').textContent = fmt(soloGastos);
+  document.getElementById('g-aporte-total').textContent = fmt(totalAportar);
   document.getElementById('g-notaria').textContent = fmt(notaria);
   document.getElementById('g-itp').textContent = fmt(itp);
   document.getElementById('g-inmo').textContent = inmoPct === 0 ? '—' : fmt(inmo);
-  document.getElementById('g-total').textContent = fmt(totalGastos);
+  document.getElementById('g-total').textContent = fmt(soloGastos);
 
-  const itpLabel = (itpPct * 100).toFixed(0) + '%';
-  const inmoLabel = inmoPct === 0 ? '0%' : (inmoPct * 100).toFixed(0) + '% base + 21% IVA';
-  document.getElementById('g-desglose').innerHTML =
-    `<span style="color:var(--text)">Entrada:</span> ${fmt(entrada)}<br>` +
-    `<span style="color:var(--text)">Notaría, registro y tasación:</span> ${fmt(notaria)}<br>` +
-    `<span style="color:var(--text)">ITP (${itpLabel}):</span> ${fmt(itp)}<br>` +
-    (inmoPct > 0 ? `<span style="color:var(--text)">Inmobiliaria (${inmoLabel}):</span> ${fmt(inmo)}<br>` : '');
+  // Break-even vs alquiler: meses necesarios para amortizar los gastos con la cuota
+  const mesesBreakEven = cuotaBase > 0 ? Math.ceil(soloGastos / cuotaBase) : 0;
+  const anosBreakEven = (mesesBreakEven / 12).toFixed(1);
+  document.getElementById('g-meses').textContent = mesesBreakEven > 0 ? mesesBreakEven + ' meses' : '—';
+  document.getElementById('g-meses-sub').textContent =
+    mesesBreakEven > 0
+      ? `${fmt(soloGastos)} ÷ ${fmt(cuotaBase)} = ${anosBreakEven} años`
+      : 'gastos ÷ cuota mensual';
 
   renderTable();
 }
