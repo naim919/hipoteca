@@ -89,6 +89,8 @@
   .resumen-item .r-value.accent { color: var(--accent); }
   .resumen-item .r-value.green { color: var(--green); }
   .resumen-item .r-value.blue { color: var(--blue); }
+  .r-baremo { font-size: 11px; color: var(--green); margin-top: 5px; line-height: 1.5; }
+  .r-baremo strong { color: var(--text-muted); }
 
   .table-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
   .amort-options { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
@@ -264,6 +266,7 @@
         <div class="resumen-item">
           <div class="r-label">Cuota Mensual</div>
           <div class="r-value green" id="r-cuota">—</div>
+          <div class="r-baremo" id="r-baremo">—</div>
         </div>
         <div class="resumen-item">
           <div class="r-label">Total Intereses</div>
@@ -373,9 +376,9 @@
         <div class="field" style="width:100%">
           <label>Honorarios Inmobiliaria (+ 21% IVA)</label>
           <select id="inmo-pct">
-            <option value="0">0% – Sin inmobiliaria</option>
+            <option value="0" selected>0% – Sin inmobiliaria</option>
             <option value="1">1%</option>
-            <option value="2" selected>2%</option>
+            <option value="2">2%</option>
             <option value="3">3%</option>
             <option value="4">4%</option>
           </select>
@@ -569,6 +572,14 @@ function calcular() {
 
   document.getElementById('r-capital').textContent = fmt(capital);
   document.getElementById('r-cuota').textContent = fmt(cuotaBase);
+  if (cuotaBase > 0) {
+    const s30 = cuotaBase / 0.30;
+    const s35 = cuotaBase / 0.35;
+    document.getElementById('r-baremo').innerHTML =
+      `<strong>Sueldo neto necesario:</strong><br>${fmtSm(s35)} € – ${fmtSm(s30)} € / mes`;
+  } else {
+    document.getElementById('r-baremo').textContent = '—';
+  }
   document.getElementById('r-intereses').textContent = fmt(totalIntereses);
 
   const itpPct = parseFloat(document.getElementById('itp-pct').value) / 100;
