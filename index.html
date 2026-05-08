@@ -21,277 +21,89 @@
     --blue: #6ea8cf;
     --radius: 12px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    min-height: 100vh;
-  }
+  .header { padding: 28px 40px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 16px; }
+  .header h1 { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--accent); letter-spacing: -0.5px; }
+  .header span { color: var(--text-muted); font-size: 13px; }
 
-  /* HEADER */
-  .header {
-    padding: 28px 40px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-  }
-  .header h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    color: var(--accent);
-    letter-spacing: -0.5px;
-  }
-  .header span {
-    color: var(--text-muted);
-    font-size: 13px;
-  }
-
-  /* MAIN LAYOUT */
-  .main {
-    padding: 24px 40px;
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 20px;
-    max-width: 1400px;
-  }
-
+  .main { padding: 24px 40px; display: grid; grid-template-columns: 1fr 340px; gap: 20px; max-width: 1400px; }
   .left-col { display: flex; flex-direction: column; gap: 20px; }
 
-  /* CARDS */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-  }
-  .card-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 15px;
-    color: var(--accent);
-    letter-spacing: 0.3px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .card-title::before {
-    content: '';
-    display: inline-block;
-    width: 3px;
-    height: 14px;
-    background: var(--accent);
-    border-radius: 2px;
-  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+  .card-title { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--accent); letter-spacing: 0.3px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+  .card-title::before { content: ''; display: inline-block; width: 3px; height: 14px; background: var(--accent); border-radius: 2px; }
 
-  /* FORM GRID */
-  .form-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-  .form-grid-2 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-  }
+  .form-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .form-grid-2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
 
   .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
+  .field label { font-size: 11px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); }
 
-  input, select {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    padding: 10px 12px;
-    width: 100%;
-    transition: border-color 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
+  input, select { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 10px 12px; width: 100%; transition: border-color 0.2s; appearance: none; -webkit-appearance: none; }
   input:focus, select:focus { outline: none; border-color: var(--accent); }
   input::placeholder { color: var(--text-dim); }
-
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a7890' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 32px;
-    cursor: pointer;
-  }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a7890' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; cursor: pointer; }
   select option { background: var(--surface2); }
 
-  /* TYPE TOGGLE */
-  .type-toggle {
-    display: flex;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  .type-toggle label {
-    flex: 1;
-    text-align: center;
-    padding: 10px 8px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-muted);
-    transition: all 0.2s;
-    letter-spacing: 0.3px;
-  }
+  .type-toggle { display: flex; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .type-toggle label { flex: 1; text-align: center; padding: 10px 8px; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--text-muted); transition: all 0.2s; letter-spacing: 0.3px; }
   .type-toggle input[type="radio"] { display: none; }
-  .type-toggle input[type="radio"]:checked + label {
-    background: var(--accent);
-    color: #0f0f13;
-    font-weight: 600;
-  }
+  .type-toggle input[type="radio"]:checked + label { background: var(--accent); color: #0f0f13; font-weight: 600; }
 
-  /* MIXED SECTION */
-  .mixed-section {
-    display: none;
-    animation: fadeIn 0.3s ease;
-  }
+  .mixed-section { display: none; animation: fadeIn 0.3s ease; }
   .mixed-section.visible { display: block; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* RIGHT COL — GASTOS */
   .gastos-card { position: sticky; top: 24px; }
 
-  .gasto-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
+  .section-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); padding: 14px 0 8px; display: flex; align-items: center; gap: 8px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .aporte-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 4px; }
+  .aporte-main { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .aporte-main .label { font-size: 12px; color: var(--text-muted); }
+  .aporte-main .value { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); }
+  .aporte-sub { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); padding-top: 6px; border-top: 1px solid var(--border); margin-top: 2px; }
+  .aporte-sub span { color: var(--text-muted); }
+
+  .meses-block { background: rgba(200,169,110,0.07); border: 1px solid var(--accent2); border-radius: 8px; padding: 14px; margin-top: 4px; }
+  .meses-block .mb-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .meses-block .mb-value { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--accent); line-height: 1; }
+  .meses-block .mb-sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+  .gasto-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
   .gasto-row:last-child { border-bottom: none; }
   .gasto-label { color: var(--text-muted); font-size: 13px; }
   .gasto-value { font-weight: 600; font-size: 15px; color: var(--text); font-variant-numeric: tabular-nums; }
 
-  .gasto-total {
-    margin-top: 16px;
-    padding: 16px;
-    background: var(--surface2);
-    border-radius: 8px;
-    border: 1px solid var(--accent2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  .gasto-total { margin-top: 12px; padding: 16px; background: var(--surface2); border-radius: 8px; border: 1px solid var(--accent2); display: flex; justify-content: space-between; align-items: center; }
   .gasto-total .label { font-size: 13px; font-weight: 500; color: var(--text-muted); }
-  .gasto-total .value {
-    font-family: 'DM Serif Display', serif;
-    font-size: 24px;
-    color: var(--accent);
-  }
+  .gasto-total .value { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--accent); }
 
-  /* RESUMEN */
-  .resumen-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 0;
-  }
-  .resumen-item {
-    background: var(--surface2);
-    border-radius: 8px;
-    padding: 14px 16px;
-    border: 1px solid var(--border);
-  }
+  .resumen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 0; }
+  .resumen-item { background: var(--surface2); border-radius: 8px; padding: 14px 16px; border: 1px solid var(--border); }
   .resumen-item .r-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
   .resumen-item .r-value { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--text); }
   .resumen-item .r-value.accent { color: var(--accent); }
   .resumen-item .r-value.green { color: var(--green); }
   .resumen-item .r-value.blue { color: var(--blue); }
 
-  /* AMORTIZATION TABLE */
-  .table-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .amort-options {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--text-muted);
-  }
+  .table-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+  .amort-options { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
   .amort-options label { cursor: pointer; display: flex; align-items: center; gap: 4px; }
   .amort-options input[type="radio"] { accent-color: var(--accent); }
 
-  .btn {
-    background: var(--accent);
-    color: #0f0f13;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    letter-spacing: 0.3px;
-  }
+  .btn { background: var(--accent); color: #0f0f13; border: none; border-radius: 8px; padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; letter-spacing: 0.3px; }
   .btn:hover { opacity: 0.85; }
-  .btn-sm {
-    padding: 6px 14px;
-    font-size: 12px;
-    border-radius: 6px;
-    background: var(--surface2);
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
+  .btn-sm { padding: 6px 14px; font-size: 12px; border-radius: 6px; background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
   .btn-sm:hover { border-color: var(--accent); }
 
-  .table-wrapper {
-    overflow-x: auto;
-    max-height: 480px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-  }
+  .table-wrapper { overflow-x: auto; max-height: 480px; border-radius: 8px; border: 1px solid var(--border); }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    font-variant-numeric: tabular-nums;
-  }
-  thead th {
-    position: sticky;
-    top: 0;
-    background: var(--surface2);
-    color: var(--text-muted);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    padding: 12px 14px;
-    text-align: right;
-    white-space: nowrap;
-    border-bottom: 1px solid var(--border);
-    z-index: 2;
-  }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+  thead th { position: sticky; top: 0; background: var(--surface2); color: var(--text-muted); font-size: 11px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; padding: 12px 14px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--border); z-index: 2; }
   thead th:first-child { text-align: center; }
   thead th:last-child { text-align: center; }
 
@@ -301,104 +113,40 @@
   tbody tr.mixed-change td { border-top: 2px solid var(--accent2); }
   tbody tr.has-amort { background: rgba(200, 169, 110, 0.06); }
 
-  td {
-    padding: 9px 14px;
-    text-align: right;
-    color: var(--text);
-    border-bottom: 1px solid rgba(42,42,56,0.5);
-  }
+  td { padding: 9px 14px; text-align: right; color: var(--text); border-bottom: 1px solid rgba(42,42,56,0.5); }
   td:first-child { text-align: center; color: var(--text-muted); font-size: 12px; }
-  .cell-acum { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
   td.capital { color: var(--green); }
   td.intereses { color: var(--red); }
   td.pendiente { color: var(--blue); }
+  .cell-acum { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
-  /* Amortizacion input cell */
   .amort-cell { text-align: center !important; }
-  .amort-input-wrap {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    justify-content: flex-end;
-  }
-  .amort-inp {
-    width: 90px;
-    padding: 5px 8px;
-    font-size: 12px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    color: var(--text);
-    text-align: right;
-    font-family: 'DM Sans', sans-serif;
-  }
+  .amort-input-wrap { display: flex; align-items: center; gap: 4px; justify-content: flex-end; }
+  .amort-inp { width: 90px; padding: 5px 8px; font-size: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; color: var(--text); text-align: right; font-family: 'DM Sans', sans-serif; }
   .amort-inp:focus { outline: none; border-color: var(--accent); }
-  .amort-btn-apply {
-    background: var(--accent);
-    border: none;
-    border-radius: 5px;
-    color: #0f0f13;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 5px 8px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
+  .amort-btn-apply { background: var(--accent); border: none; border-radius: 5px; color: #0f0f13; font-size: 11px; font-weight: 600; padding: 5px 8px; cursor: pointer; white-space: nowrap; }
   .amort-btn-apply:hover { opacity: 0.8; }
 
-  /* Year tag */
-  .year-tag {
-    display: inline-block;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    font-size: 10px;
-    padding: 2px 6px;
-    color: var(--text-muted);
-    margin-left: 4px;
-  }
-  .mixed-tag {
-    background: rgba(200,169,110,0.15);
-    border-color: var(--accent2);
-    color: var(--accent);
-  }
+  .year-tag { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; font-size: 10px; padding: 2px 6px; color: var(--text-muted); margin-left: 4px; }
+  .mixed-tag { background: rgba(200,169,110,0.15); border-color: var(--accent2); color: var(--accent); }
 
-  /* Modal amort options */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-  }
+  .amort-pill { display: flex; align-items: center; gap: 6px; background: rgba(200,169,110,0.1); border: 1px solid var(--accent2); border-radius: 6px; padding: 5px 8px; margin-bottom: 4px; }
+  .amort-pill-info { flex: 1; text-align: left; }
+  .amort-pill-amount { font-size: 12px; font-weight: 600; color: var(--accent); }
+  .amort-pill-mode { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+  .amort-pill-actions { display: flex; gap: 4px; }
+  .pill-btn { border: none; border-radius: 4px; padding: 4px 8px; font-size: 11px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+  .pill-btn:hover { opacity: 0.75; }
+  .pill-btn-edit { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .pill-btn-del { background: rgba(224,112,112,0.15); color: var(--red); border: 1px solid rgba(224,112,112,0.3); }
+
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    width: 380px;
-    max-width: 90vw;
-  }
-  .modal h3 {
-    font-family: 'DM Serif Display', serif;
-    color: var(--accent);
-    font-size: 18px;
-    margin-bottom: 8px;
-  }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; width: 380px; max-width: 90vw; }
+  .modal h3 { font-family: 'DM Serif Display', serif; color: var(--accent); font-size: 18px; margin-bottom: 8px; }
   .modal p { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
   .modal-opts { display: flex; gap: 12px; margin-bottom: 20px; }
-  .modal-opt {
-    flex: 1;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    text-align: center;
-  }
+  .modal-opt { flex: 1; border: 1px solid var(--border); border-radius: 8px; padding: 16px; cursor: pointer; transition: border-color 0.2s, background 0.2s; text-align: center; }
   .modal-opt.selected { border-color: var(--accent); background: rgba(200,169,110,0.08); }
   .modal-opt .icon { font-size: 22px; margin-bottom: 6px; }
   .modal-opt .opt-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
@@ -406,184 +154,25 @@
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
   .btn-cancel { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
 
-  .tag {
-    display: inline-block;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 6px;
-    letter-spacing: 0.4px;
-  }
-  .tag-amort {
-    background: rgba(200,169,110,0.2);
-    color: var(--accent);
-    border: 1px solid var(--accent2);
-  }
-
-  /* Amort display pill */
-  .amort-pill {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(200,169,110,0.1);
-    border: 1px solid var(--accent2);
-    border-radius: 6px;
-    padding: 5px 8px;
-    margin-bottom: 4px;
-  }
-  .amort-pill-info { flex: 1; text-align: left; }
-  .amort-pill-amount { font-size: 12px; font-weight: 600; color: var(--accent); }
-  .amort-pill-mode { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
-  .amort-pill-actions { display: flex; gap: 4px; }
-  .pill-btn {
-    border: none;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 11px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
-  .pill-btn:hover { opacity: 0.75; }
-  .pill-btn-edit { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-  .pill-btn-del { background: rgba(224,112,112,0.15); color: var(--red); border: 1px solid rgba(224,112,112,0.3); }
-
-  /* Input with suffix */
-  .input-wrap {
-    position: relative;
-  }
-  .input-wrap input {
-    padding-right: 36px;
-  }
-  .input-suffix {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-    font-size: 13px;
-    pointer-events: none;
-  }
-
-  /* Section divider label */
-  .section-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    padding: 14px 0 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* Dinero a aportar block */
-  .aporte-block {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
-    margin-bottom: 4px;
-  }
-  .aporte-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-  }
-  .aporte-main .label { font-size: 12px; color: var(--text-muted); }
-  .aporte-main .value { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); }
-  .aporte-sub {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    color: var(--text-dim);
-    padding-top: 6px;
-    border-top: 1px solid var(--border);
-    margin-top: 2px;
-  }
-  .aporte-sub span { color: var(--text-muted); }
-
-  /* Meses alquiler highlight */
-  .meses-block {
-    background: rgba(200,169,110,0.07);
-    border: 1px solid var(--accent2);
-    border-radius: 8px;
-    padding: 14px;
-    margin-top: 4px;
-  }
-  .meses-block .mb-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
-  .meses-block .mb-value { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--accent); line-height: 1; }
-  .meses-block .mb-sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
-
   /* Euribor grid */
-  .euribor-section {
-    display: none;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-    animation: fadeIn 0.3s ease;
-  }
+  .euribor-section { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); animation: fadeIn 0.3s ease; }
   .euribor-section.visible { display: block; }
-  .euribor-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-  }
-  .euribor-header label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-  .euribor-formula {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .euribor-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent);
-    white-space: nowrap;
-  }
+  .euribor-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .euribor-header label { font-size: 11px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+  .euribor-formula { display: flex; align-items: center; gap: 8px; }
+  .euribor-label { font-size: 13px; font-weight: 600; color: var(--accent); white-space: nowrap; }
   .euribor-plus { color: var(--text-muted); font-size: 16px; }
   .euribor-spread-wrap { position: relative; width: 90px; }
   .euribor-spread-wrap input { padding-right: 28px; }
-  .euribor-year-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 8px;
-  }
-  .euribor-year-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .euribor-year-item label {
-    font-size: 10px;
-    color: var(--text-dim);
-    letter-spacing: 0.4px;
-    white-space: nowrap;
-  }
-  .euribor-year-item input {
-    padding: 7px 28px 7px 10px;
-    font-size: 13px;
-  }
+  .euribor-year-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+  .euribor-year-item { display: flex; flex-direction: column; gap: 4px; }
+  .euribor-year-item label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.4px; white-space: nowrap; }
+  .euribor-year-item input { padding: 7px 28px 7px 10px; font-size: 13px; }
 
-  /* Scrollbar */
-  /* Scrollbar */
+  .input-wrap { position: relative; }
+  .input-wrap input { padding-right: 36px; }
+  .input-suffix { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 13px; pointer-events: none; }
+
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
@@ -600,31 +189,20 @@
 <div class="main">
   <div class="left-col">
 
-    <!-- DATOS DE LA HIPOTECA -->
     <div class="card">
       <div class="card-title">Datos de la Hipoteca</div>
-
       <div class="form-grid">
         <div class="field">
           <label>Precio de la Vivienda</label>
-          <div class="input-wrap">
-            <input type="number" id="precio" value="200000" min="0" step="1000">
-            <span class="input-suffix">€</span>
-          </div>
+          <div class="input-wrap"><input type="number" id="precio" value="300000" min="0" step="1000"><span class="input-suffix">€</span></div>
         </div>
         <div class="field">
           <label>% a Financiar</label>
-          <div class="input-wrap">
-            <input type="number" id="pct-financiar" value="80" min="1" max="100" step="1">
-            <span class="input-suffix">%</span>
-          </div>
+          <div class="input-wrap"><input type="number" id="pct-financiar" value="80" min="1" max="100" step="1"><span class="input-suffix">%</span></div>
         </div>
         <div class="field">
           <label>Plazo Total</label>
-          <div class="input-wrap">
-            <input type="number" id="anos" value="30" min="1" max="40" step="1">
-            <span class="input-suffix">años</span>
-          </div>
+          <div class="input-wrap"><input type="number" id="anos" value="30" min="1" max="40" step="1"><span class="input-suffix">años</span></div>
         </div>
         <div class="field">
           <label>Tipo de Hipoteca</label>
@@ -641,10 +219,7 @@
       <div id="seccion-fijo" class="form-grid-2">
         <div class="field">
           <label>Tipo de Interés Fijo</label>
-          <div class="input-wrap">
-            <input type="number" id="interes-fijo" value="2.2" min="0" max="20" step="0.01">
-            <span class="input-suffix">%</span>
-          </div>
+          <div class="input-wrap"><input type="number" id="interes-fijo" value="2.2" min="0" max="20" step="0.01"><span class="input-suffix">%</span></div>
         </div>
       </div>
 
@@ -653,17 +228,11 @@
         <div class="form-grid-2">
           <div class="field">
             <label>Interés Fijo Inicial</label>
-            <div class="input-wrap">
-              <input type="number" id="interes-mixto-fijo" value="2.8" min="0" max="20" step="0.01">
-              <span class="input-suffix">%</span>
-            </div>
+            <div class="input-wrap"><input type="number" id="interes-mixto-fijo" value="2.8" min="0" max="20" step="0.01"><span class="input-suffix">%</span></div>
           </div>
           <div class="field">
             <label>Años a Tipo Fijo</label>
-            <div class="input-wrap">
-              <input type="number" id="anos-fijo" value="10" min="1" max="39" step="1">
-              <span class="input-suffix">años</span>
-            </div>
+            <div class="input-wrap"><input type="number" id="anos-fijo" value="10" min="1" max="39" step="1"><span class="input-suffix">años</span></div>
           </div>
           <div class="field">
             <label>Diferencial sobre Euríbor</label>
@@ -677,8 +246,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Euribor por año variable -->
         <div class="euribor-section" id="euribor-section">
           <div class="euribor-header">
             <label>Euríbor estimado por año</label>
@@ -708,7 +275,6 @@
     <!-- CUADRO DE AMORTIZACIÓN -->
     <div class="card">
       <div class="card-title">Cuadro de Amortización</div>
-
       <div class="table-controls">
         <div class="amort-options">
           <span style="margin-right:6px; font-size:11px; letter-spacing:0.6px; text-transform:uppercase;">Amortización parcial:</span>
@@ -717,7 +283,6 @@
         </div>
         <button class="btn" onclick="calcular()">Calcular</button>
       </div>
-
       <div class="table-wrapper">
         <table id="tabla">
           <thead>
@@ -742,7 +307,6 @@
     <div class="card gastos-card">
       <div class="card-title">Desembolso Inicial</div>
 
-      <!-- DINERO A APORTAR -->
       <div class="section-label">Dinero a aportar</div>
       <div class="aporte-block">
         <div class="aporte-main">
@@ -755,7 +319,6 @@
         </div>
       </div>
 
-      <!-- GASTOS (sin entrada) -->
       <div class="section-label">Gastos</div>
 
       <div class="gasto-row" style="padding-top:4px;">
@@ -779,13 +342,25 @@
 
       <div class="gasto-row" style="padding-top:10px;">
         <div class="field" style="width:100%">
-          <label>ITP (% del valor total)</label>
+          <label>ITP por Comunidad Autónoma</label>
           <select id="itp-pct">
-            <option value="6">6%</option>
-            <option value="7">7%</option>
-            <option value="8" selected>8%</option>
-            <option value="9">9%</option>
-            <option value="10">10%</option>
+            <option value="4">País Vasco — 4%</option>
+            <option value="6" selected>Comunidad de Madrid — 6%</option>
+            <option value="6">Navarra — 6%</option>
+            <option value="6.5">Canarias — 6,5%</option>
+            <option value="7">Andalucía — 7%</option>
+            <option value="7">La Rioja — 7%</option>
+            <option value="8">Aragón — 8%</option>
+            <option value="8">Asturias — 8%</option>
+            <option value="8">Castilla y León — 8%</option>
+            <option value="8">Murcia — 8%</option>
+            <option value="8">Extremadura — 8%</option>
+            <option value="9">Galicia — 9%</option>
+            <option value="9">Castilla-La Mancha — 9%</option>
+            <option value="9">Islas Baleares — 9%</option>
+            <option value="9">Comunidad Valenciana — 9%</option>
+            <option value="10">Cataluña — 10%</option>
+            <option value="10">Cantabria — 10%</option>
           </select>
         </div>
       </div>
@@ -811,7 +386,7 @@
         <span class="gasto-value" id="g-inmo">—</span>
       </div>
 
-      <div class="gasto-total" style="margin-top:12px;">
+      <div class="gasto-total">
         <div>
           <div class="label">Total Gastos</div>
           <div style="font-size:11px; color:var(--text-dim); margin-top:2px;">Sin incluir la entrada</div>
@@ -819,7 +394,6 @@
         <div class="value" id="g-total">—</div>
       </div>
 
-      <!-- BREAK-EVEN ALQUILER -->
       <div class="section-label">Rentabilidad vs alquiler</div>
       <div class="meses-block">
         <div class="mb-label">Meses de cuota hipotecaria para amortizar los gastos</div>
@@ -832,11 +406,11 @@
 
 </div><!-- /main -->
 
-<!-- MODAL AMORTIZACIÓN PARCIAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <h3 id="modal-title">Amortización Parcial</h3>
-    <p id="modal-desc">Selecciona cómo aplicar la amortización parcial.</p>
+    <p id="modal-desc">Configura el importe y cómo aplicarlo.</p>
     <div style="margin-bottom:16px;">
       <label style="font-size:11px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:6px;">Importe a amortizar</label>
       <div style="position:relative;">
@@ -865,17 +439,14 @@
 </div>
 
 <script>
-// ─── STATE ───────────────────────────────────────────────────────
-let schedule = []; // array of rows
-let amortizations = {}; // { mesIndex: amount }
+let schedule = [];
+let amortizations = {};
 let pendingAmortMes = null;
 let pendingAmortModo = 'cuota';
 
-// ─── UTILS ───────────────────────────────────────────────────────
 const fmt = (n) => n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
 const fmtSm = (n) => n.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-// ─── TIPO TOGGLE ─────────────────────────────────────────────────
 document.querySelectorAll('input[name="tipo"]').forEach(r => {
   r.addEventListener('change', () => {
     const mixto = r.value === 'mixto';
@@ -886,32 +457,25 @@ document.querySelectorAll('input[name="tipo"]').forEach(r => {
   });
 });
 
-// ─── AUTO CALC ───────────────────────────────────────────────────
-['precio','pct-financiar','anos','interes-fijo','interes-mixto-fijo','itp-pct','inmo-pct'].forEach(id => {
+['precio','pct-financiar','interes-fijo','interes-mixto-fijo','euribor-spread'].forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', calcular);
 });
-// anos and anos-fijo also rebuild the euribor grid
 ['anos','anos-fijo'].forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', () => { rebuildEuriborGrid(); calcular(); });
 });
-document.getElementById('euribor-spread').addEventListener('input', calcular);
 document.getElementById('notaria-importe').addEventListener('change', calcular);
-  document.getElementById('itp-pct').addEventListener('change', calcular);
+document.getElementById('itp-pct').addEventListener('change', calcular);
 document.getElementById('inmo-pct').addEventListener('change', calcular);
 
-// ─── AMORT HELPERS ───────────────────────────────────────────────
 function cuotaMensual(capital, tasaAnual, meses) {
   if (tasaAnual === 0) return capital / meses;
   const r = tasaAnual / 100 / 12;
   return capital * r / (1 - Math.pow(1 + r, -meses));
 }
 
-// ─── BUILD SCHEDULE ──────────────────────────────────────────────
 function buildSchedule(capital, params) {
-  // params: { tipo, interesFijo, interesMixtoFijo, anosFixo,
-  //           euriborSpread, euriborAnual (array), mesesTotal }
   const rows = [];
   let saldo = capital;
   const mesesTotal = params.mesesTotal;
@@ -919,15 +483,11 @@ function buildSchedule(capital, params) {
   const mesesFixo = esFixo ? mesesTotal : params.anosFixo * 12;
   const amorts = params.amorts || {};
 
-  // Compute effective rate for a given month index (0-based)
   function tasaParaMes(i) {
     if (esFixo) return params.interesFijo;
     if (i < mesesFixo) return params.interesMixtoFijo;
-    // Variable: use per-year euribor + spread
-    const anoVar = Math.floor((i - mesesFixo) / 12); // 0-based variable year
-    const euribor = (params.euriborAnual && params.euriborAnual[anoVar] != null)
-      ? params.euriborAnual[anoVar]
-      : 2.3;
+    const anoVar = Math.floor((i - mesesFixo) / 12);
+    const euribor = (params.euriborAnual && params.euriborAnual[anoVar] != null) ? params.euriborAnual[anoVar] : 2.3;
     return euribor + params.euriborSpread;
   }
 
@@ -937,93 +497,55 @@ function buildSchedule(capital, params) {
 
   for (let i = 0; i < mesesTotal; i++) {
     if (saldo <= 0.01) break;
-
     const tasaActual = tasaParaMes(i);
     const isMixedBoundary = !esFixo && i === mesesFixo;
-
-    // On switch to variable, recalculate cuota with new rate
-    if (isMixedBoundary) {
-      const mesesRestantes = mesesTotal - i;
-      cuotaActual = cuotaMensual(saldo, tasaActual, mesesRestantes);
-    }
-
-    // Annual rate change within variable period (start of each new variable year)
-    if (!esFixo && i > mesesFixo && (i - mesesFixo) % 12 === 0) {
-      const mesesRestantes = mesesTotal - i;
-      cuotaActual = cuotaMensual(saldo, tasaActual, mesesRestantes);
-    }
+    if (isMixedBoundary) cuotaActual = cuotaMensual(saldo, tasaActual, mesesTotal - i);
+    if (!esFixo && i > mesesFixo && (i - mesesFixo) % 12 === 0) cuotaActual = cuotaMensual(saldo, tasaActual, mesesTotal - i);
 
     const r = tasaActual / 100 / 12;
     const interes = saldo * r;
     const amortizacion = cuotaActual - interes;
     const nuevoSaldo = Math.max(0, saldo - amortizacion);
 
-    const anoVar = (!esFixo && i >= mesesFixo)
-      ? Math.floor((i - mesesFixo) / 12) : null;
-
     rows.push({
-      mes: i + 1,
-      cuota: cuotaActual,
-      pendiente: nuevoSaldo,
-      capital: amortizacion,
-      intereses: interes,
-      amort: amorts[i + 1] || 0,
-      mixedBoundary: isMixedBoundary,
-      yearBoundary: i > 0 && i % 12 === 0 && !isMixedBoundary,
-      tasaActual,
-      anoVar,
+      mes: i + 1, cuota: cuotaActual, pendiente: nuevoSaldo,
+      capital: amortizacion, intereses: interes, amort: amorts[i + 1] || 0,
+      mixedBoundary: isMixedBoundary, yearBoundary: i > 0 && i % 12 === 0 && !isMixedBoundary, tasaActual,
     });
-
     saldo = nuevoSaldo;
 
-    // Apply amortizacion parcial after this month
     if (amorts[i + 1]) {
       saldo = Math.max(0, saldo - amorts[i + 1]);
       rows[rows.length - 1].pendiente = saldo;
       const modo = params.amortModo?.[i + 1] || 'cuota';
-      const mesesRestantes = mesesTotal - (i + 1);
-      if (modo === 'cuota' && mesesRestantes > 0) {
-        cuotaActual = cuotaMensual(saldo, tasaParaMes(i + 1), mesesRestantes);
-      }
+      if (modo === 'cuota' && mesesTotal - (i + 1) > 0) cuotaActual = cuotaMensual(saldo, tasaParaMes(i + 1), mesesTotal - (i + 1));
     }
   }
-
   return rows;
 }
 
-// ─── EURIBOR GRID BUILDER ────────────────────────────────────────
 function rebuildEuriborGrid() {
   const anos = parseInt(document.getElementById('anos').value) || 30;
   const anosFixo = parseInt(document.getElementById('anos-fijo').value) || 10;
   const anosVar = Math.max(0, anos - anosFixo);
   const section = document.getElementById('euribor-section');
   const grid = document.getElementById('euribor-year-grid');
-
   if (anosVar <= 0) { section.classList.remove('visible'); return; }
   section.classList.add('visible');
-
-  // Preserve existing values
   const existing = [];
   grid.querySelectorAll('.euribor-year-inp').forEach(inp => existing.push(inp.value));
-
   grid.innerHTML = '';
   for (let y = 0; y < anosVar; y++) {
     const anoReal = anosFixo + y + 1;
     const val = existing[y] !== undefined ? existing[y] : '2.30';
     const item = document.createElement('div');
     item.className = 'euribor-year-item';
-    item.innerHTML = `
-      <label>Euríbor año ${anoReal}</label>
-      <div class="input-wrap">
-        <input type="number" class="euribor-year-inp" value="${val}" min="0" max="15" step="0.01">
-        <span class="input-suffix">%</span>
-      </div>`;
+    item.innerHTML = `<label>Euríbor año ${anoReal}</label><div class="input-wrap"><input type="number" class="euribor-year-inp" value="${val}" min="0" max="15" step="0.01"><span class="input-suffix">%</span></div>`;
     item.querySelector('input').addEventListener('input', calcular);
     grid.appendChild(item);
   }
 }
 
-// ─── MAIN CALC ───────────────────────────────────────────────────
 function calcular() {
   const precio = parseFloat(document.getElementById('precio').value) || 0;
   const pctFin = parseFloat(document.getElementById('pct-financiar').value) || 80;
@@ -1033,29 +555,15 @@ function calcular() {
   const interesMixtoFijo = parseFloat(document.getElementById('interes-mixto-fijo').value) || 0;
   const anosFixo = parseFloat(document.getElementById('anos-fijo').value) || 10;
   const euriborSpread = parseFloat(document.getElementById('euribor-spread')?.value) || 1.0;
-
-  // Collect per-year euribor values
   const euriborAnual = [];
-  document.querySelectorAll('.euribor-year-inp').forEach(inp => {
-    euriborAnual.push(parseFloat(inp.value) || 2.3);
-  });
+  document.querySelectorAll('.euribor-year-inp').forEach(inp => euriborAnual.push(parseFloat(inp.value) || 2.3));
 
   const capital = precio * (pctFin / 100);
   const entrada = precio - capital;
   const mesesTotal = anos * 12;
 
-  // Build schedule
-  const params = {
-    tipo, interesFijo, interesMixtoFijo, anosFixo,
-    euriborSpread, euriborAnual,
-    mesesTotal,
-    amorts: amortizations,
-    amortModo: window.amortModos || {},
-  };
-  schedule = buildSchedule(capital, params);
+  schedule = buildSchedule(capital, { tipo, interesFijo, interesMixtoFijo, anosFixo, euriborSpread, euriborAnual, mesesTotal, amorts: amortizations, amortModo: window.amortModos || {} });
 
-  // Resumen
-  const totalPagado = schedule.reduce((s, r) => s + r.cuota, 0) + Object.values(amortizations).reduce((a,b)=>a+b,0);
   const totalIntereses = schedule.reduce((s, r) => s + r.intereses, 0);
   const cuotaBase = schedule[0]?.cuota || 0;
 
@@ -1063,16 +571,12 @@ function calcular() {
   document.getElementById('r-cuota').textContent = fmt(cuotaBase);
   document.getElementById('r-intereses').textContent = fmt(totalIntereses);
 
-  // Gastos
   const itpPct = parseFloat(document.getElementById('itp-pct').value) / 100;
   const inmoPct = parseFloat(document.getElementById('inmo-pct').value) / 100;
   const notaria = parseFloat(document.getElementById('notaria-importe').value) || 2500;
   const itp = precio * itpPct;
   const inmo = precio * inmoPct * 1.21;
-
-  // Gastos puros (sin entrada)
   const soloGastos = notaria + itp + (inmoPct > 0 ? inmo : 0);
-  // Total a aportar = entrada + gastos
   const totalAportar = entrada + soloGastos;
 
   document.getElementById('g-entrada').textContent = fmt(entrada);
@@ -1083,27 +587,23 @@ function calcular() {
   document.getElementById('g-inmo').textContent = inmoPct === 0 ? '—' : fmt(inmo);
   document.getElementById('g-total').textContent = fmt(soloGastos);
 
-  // Break-even vs alquiler: meses necesarios para amortizar los gastos con la cuota
+  const itpSel = document.getElementById('itp-pct');
+  const itpLabel = itpSel.options[itpSel.selectedIndex].text;
+
   const mesesBreakEven = cuotaBase > 0 ? Math.ceil(soloGastos / cuotaBase) : 0;
   const anosBreakEven = (mesesBreakEven / 12).toFixed(1);
   document.getElementById('g-meses').textContent = mesesBreakEven > 0 ? mesesBreakEven + ' meses' : '—';
-  document.getElementById('g-meses-sub').textContent =
-    mesesBreakEven > 0
-      ? `${fmt(soloGastos)} ÷ ${fmt(cuotaBase)} = ${anosBreakEven} años`
-      : 'gastos ÷ cuota mensual';
+  document.getElementById('g-meses-sub').textContent = mesesBreakEven > 0 ? `${fmt(soloGastos)} ÷ ${fmt(cuotaBase)} = ${anosBreakEven} años` : 'gastos ÷ cuota mensual';
 
   renderTable();
 }
 
-// ─── RENDER TABLE ────────────────────────────────────────────────
 function renderTable() {
   const tbody = document.getElementById('tbody');
   tbody.innerHTML = '';
+  let acumCapital = 0, acumIntereses = 0;
 
-  let acumCapital = 0;
-  let acumIntereses = 0;
-
-  schedule.forEach((row, i) => {
+  schedule.forEach((row) => {
     acumCapital += row.capital;
     acumIntereses += row.intereses;
 
@@ -1113,51 +613,26 @@ function renderTable() {
     if (row.amort > 0) tr.classList.add('has-amort');
 
     const mesLabel = row.mes + (row.yearBoundary || row.mixedBoundary
-      ? `<span class="year-tag ${row.mixedBoundary ? 'mixed-tag' : ''}">Año ${Math.ceil(row.mes/12)}${row.mixedBoundary ? ' · Variable' : ''}</span>`
-      : '');
+      ? `<span class="year-tag ${row.mixedBoundary ? 'mixed-tag' : ''}">Año ${Math.ceil(row.mes/12)}${row.mixedBoundary ? ' · Variable' : ''}</span>` : '');
 
     let amortCell = '';
     if (row.amort > 0) {
       const modoLabel = (window.amortModos?.[row.mes] === 'plazo') ? '⏱ Acortar plazo' : '📉 Reducir cuota';
-      amortCell = `
-        <div class="amort-pill">
-          <div class="amort-pill-info">
-            <div class="amort-pill-amount">${fmt(row.amort)}</div>
-            <div class="amort-pill-mode">${modoLabel}</div>
-          </div>
-          <div class="amort-pill-actions">
-            <button class="pill-btn pill-btn-edit" onclick="editAmort(${row.mes})">✏ Editar</button>
-            <button class="pill-btn pill-btn-del" onclick="deleteAmort(${row.mes})">✕ Borrar</button>
-          </div>
-        </div>`;
+      amortCell = `<div class="amort-pill"><div class="amort-pill-info"><div class="amort-pill-amount">${fmt(row.amort)}</div><div class="amort-pill-mode">${modoLabel}</div></div><div class="amort-pill-actions"><button class="pill-btn pill-btn-edit" onclick="editAmort(${row.mes})">✏ Editar</button><button class="pill-btn pill-btn-del" onclick="deleteAmort(${row.mes})">✕ Borrar</button></div></div>`;
     } else {
-      amortCell = `
-        <div class="amort-input-wrap">
-          <input class="amort-inp" type="number" placeholder="0" min="0" step="100"
-            data-mes="${row.mes}" value="">
-          <button class="amort-btn-apply" onclick="openModal(${row.mes}, this.previousElementSibling)">✓</button>
-        </div>`;
+      amortCell = `<div class="amort-input-wrap"><input class="amort-inp" type="number" placeholder="0" min="0" step="100" data-mes="${row.mes}" value=""><button class="amort-btn-apply" onclick="openModal(${row.mes}, this.previousElementSibling)">✓</button></div>`;
     }
 
     tr.innerHTML = `
       <td>${mesLabel}</td>
       <td>${fmtSm(row.cuota)} €</td>
       <td class="pendiente">${fmtSm(row.pendiente)} €</td>
-      <td class="capital">
-        ${fmtSm(row.capital)} €
-        <div class="cell-acum">(${fmtSm(acumCapital)} €)</div>
-      </td>
-      <td class="intereses">
-        ${fmtSm(row.intereses)} €
-        <div class="cell-acum">(${fmtSm(acumIntereses)} €)</div>
-      </td>
-      <td class="amort-cell">${amortCell}</td>
-    `;
+      <td class="capital">${fmtSm(row.capital)} €<div class="cell-acum">(${fmtSm(acumCapital)} €)</div></td>
+      <td class="intereses">${fmtSm(row.intereses)} €<div class="cell-acum">(${fmtSm(acumIntereses)} €)</div></td>
+      <td class="amort-cell">${amortCell}</td>`;
     tbody.appendChild(tr);
   });
 }
-
-// ─── MODAL ───────────────────────────────────────────────────────
 
 function openModal(mes, inputEl) {
   const val = parseFloat(inputEl.value);
@@ -1167,8 +642,7 @@ function openModal(mes, inputEl) {
   document.getElementById('modal-desc').textContent = `Mes ${mes} · configura el importe y cómo aplicarlo.`;
   document.getElementById('modal-importe').value = val;
   document.getElementById('modal').classList.add('open');
-  const global = document.querySelector('input[name="amort-tipo"]:checked').value;
-  selectOpt(global);
+  selectOpt(document.querySelector('input[name="amort-tipo"]:checked').value);
 }
 
 function editAmort(mes) {
@@ -1207,11 +681,8 @@ function applyAmort() {
   calcular();
 }
 
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
-// ─── INIT ────────────────────────────────────────────────────────
 window.amortModos = {};
 rebuildEuriborGrid();
 calcular();
